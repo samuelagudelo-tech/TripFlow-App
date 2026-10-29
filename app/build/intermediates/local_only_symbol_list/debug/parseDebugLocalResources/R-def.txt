@@ -1,0 +1,8 @@
+R_DEF: Internal format may change without notice
+local
+color background_light
+color brand_hover
+color brand_light
+color brand_primary
+string app_name
+style Theme.TripFlow
