@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_primary">#FF3482</color>
+    <color name="brand_hover">#E02B71</color>
+    <color name="brand_light">#FFEAEE</color>
+    <color name="background_light">#F9FAFB</color>
+</resources>
