@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +30,7 @@ import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.DestructiveRed
 import com.tripflow.android.ui.theme.TextPrimary
 import com.tripflow.android.ui.theme.TextSecondary
+import com.tripflow.android.ui.theme.TripFlowTheme
 
 @Composable
 fun RegisterScreen(
@@ -296,5 +299,16 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun RegisterScreenPreview() {
+    TripFlowTheme {
+        RegisterScreen(
+            onNavigateToLogin = {},
+            onRegisterSuccess = {}
+        )
     }
 }

@@ -4,5 +4,6 @@ color background_light
 color brand_hover
 color brand_light
 color brand_primary
+drawable icon
 string app_name
 style Theme.TripFlow

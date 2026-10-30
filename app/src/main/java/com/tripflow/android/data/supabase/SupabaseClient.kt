@@ -8,7 +8,7 @@ import io.github.jan.supabase.storage.Storage
 object SupabaseClient {
     // Configurar con las credenciales de tu proyecto Supabase
     private const val SUPABASE_URL = "https://vaqggjxwlpofxnizlqyc.supabase.co"
-    private const val SUPABASE_KEY = "TRIPFLOWANDROID"
+    private const val SUPABASE_KEY = "sb_publishable_nAvwjpXHB4MsU98AyytVag_UoTR60Qf"
 
     val client = createSupabaseClient(
         supabaseUrl = SUPABASE_URL,

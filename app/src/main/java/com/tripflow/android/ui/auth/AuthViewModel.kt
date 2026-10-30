@@ -59,8 +59,8 @@ class AuthViewModel : ViewModel() {
                 }
                 _uiState.value = AuthUiState.Success
                 onSuccess()
-            } catch (e: Exception) {
-                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(e))
+            } catch (t: Throwable) {
+                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(t))
             }
         }
     }
@@ -116,8 +116,8 @@ class AuthViewModel : ViewModel() {
                 }
                 _uiState.value = AuthUiState.Success
                 onSuccess()
-            } catch (e: Exception) {
-                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(e))
+            } catch (t: Throwable) {
+                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(t))
             }
         }
     }
@@ -134,8 +134,8 @@ class AuthViewModel : ViewModel() {
         return password.length >= 8 && hasLetter && hasDigit
     }
 
-    private fun mapAuthErrorMessage(exception: Exception): String {
-        val msg = exception.message.orEmpty()
+    private fun mapAuthErrorMessage(throwable: Throwable): String {
+        val msg = throwable.message.orEmpty()
         return when {
             msg.contains("Invalid login credentials", ignoreCase = true) ->
                 "Correo o contraseña incorrectos. Verifica tus datos."
@@ -149,7 +149,7 @@ class AuthViewModel : ViewModel() {
             msg.contains("timeout", ignoreCase = true) ->
                 "Error de conexión. Verifica tu conexión a internet."
             else ->
-                exception.localizedMessage ?: "Ocurrió un error al procesar tu solicitud."
+                throwable.localizedMessage ?: "Ocurrió un error al procesar tu solicitud."
         }
     }
 }

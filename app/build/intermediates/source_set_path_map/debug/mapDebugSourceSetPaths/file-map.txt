@@ -50,10 +50,10 @@ com.tripflow.android.app-savedstate-1.2.1-48 C:\Users\USUARIO\.gradle\caches\8.9
 com.tripflow.android.app-runtime-saveable-release-49 C:\Users\USUARIO\.gradle\caches\8.9\transforms\f19dd98611154e00a4792255dbdb49ff\transformed\runtime-saveable-release\res
 com.tripflow.android.app-ui-text-release-50 C:\Users\USUARIO\.gradle\caches\8.9\transforms\f8387da733c9d3dd4974ec953a9f26ba\transformed\ui-text-release\res
 com.tripflow.android.app-core-1.15.0-51 C:\Users\USUARIO\.gradle\caches\8.9\transforms\fe49a813a37e98fa546a154fa5826c61\transformed\core-1.15.0\res
-com.tripflow.android.app-pngs-52 D:\TripFlow-Android\app\build\generated\res\pngs\debug
-com.tripflow.android.app-resValues-53 D:\TripFlow-Android\app\build\generated\res\resValues\debug
-com.tripflow.android.app-packageDebugResources-54 D:\TripFlow-Android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.tripflow.android.app-packageDebugResources-55 D:\TripFlow-Android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.tripflow.android.app-debug-56 D:\TripFlow-Android\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.tripflow.android.app-debug-57 D:\TripFlow-Android\app\src\debug\res
-com.tripflow.android.app-main-58 D:\TripFlow-Android\app\src\main\res
+com.tripflow.android.app-pngs-52 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\generated\res\pngs\debug
+com.tripflow.android.app-resValues-53 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\generated\res\resValues\debug
+com.tripflow.android.app-packageDebugResources-54 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.tripflow.android.app-packageDebugResources-55 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.tripflow.android.app-debug-56 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.tripflow.android.app-debug-57 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\src\debug\res
+com.tripflow.android.app-main-58 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\src\main\res

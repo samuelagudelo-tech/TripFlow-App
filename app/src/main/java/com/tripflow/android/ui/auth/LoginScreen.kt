@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +29,7 @@ import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.DestructiveRed
 import com.tripflow.android.ui.theme.TextPrimary
 import com.tripflow.android.ui.theme.TextSecondary
+import com.tripflow.android.ui.theme.TripFlowTheme
 
 @Composable
 fun LoginScreen(
@@ -200,5 +202,16 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun LoginScreenPreview() {
+    TripFlowTheme {
+        LoginScreen(
+            onNavigateToRegister = {},
+            onLoginSuccess = {}
+        )
     }
 }

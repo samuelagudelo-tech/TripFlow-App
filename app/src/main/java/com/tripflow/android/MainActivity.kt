@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.tripflow.android.ui.navigation.AppNavigation
+import com.tripflow.android.ui.navigation.Screen
 import com.tripflow.android.ui.theme.TripFlowTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TripFlowTheme {
-                AppNavigation()
+                AppNavigation(startDestination = Screen.Login.route)
             }
         }
     }
