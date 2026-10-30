@@ -1,16 +1,15 @@
 package com.tripflow.android.ui.auth
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripflow.android.data.supabase.SupabaseClient
-import io.github.jan.supabase.auth.auth
-import io.github.jan.supabase.auth.providers.builtin.Email
+import com.tripflow.android.data.local.TripFlowDatabase
+import com.tripflow.android.data.local.entity.UserEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
+import java.security.MessageDigest
 
 sealed interface AuthUiState {
     object Idle : AuthUiState
@@ -19,7 +18,10 @@ sealed interface AuthUiState {
     data class Error(val message: String) : AuthUiState
 }
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val database = TripFlowDatabase.getDatabase(application)
+    private val userDao = database.userDao()
 
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Idle)
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
@@ -29,7 +31,7 @@ class AuthViewModel : ViewModel() {
     }
 
     /**
-     * Inicia sesión con correo y contraseña en Supabase Auth
+     * Inicia sesión verificando credenciales en la base de datos local (Room)
      */
     fun signIn(
         email: String,
@@ -53,20 +55,29 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
             try {
-                SupabaseClient.client.auth.signInWith(Email) {
-                    this.email = trimmedEmail
-                    this.password = pass
+                val hashedPass = hashPassword(pass)
+                val user = userDao.authenticate(trimmedEmail, hashedPass)
+                    ?: userDao.authenticate(trimmedEmail, pass) // compatibilidad con texto plano
+
+                if (user != null) {
+                    _uiState.value = AuthUiState.Success
+                    onSuccess()
+                } else {
+                    val existingUser = userDao.getUserByEmail(trimmedEmail)
+                    if (existingUser != null) {
+                        _uiState.value = AuthUiState.Error("Contraseña incorrecta. Verifica tus datos.")
+                    } else {
+                        _uiState.value = AuthUiState.Error("No existe una cuenta registrada con este correo.")
+                    }
                 }
-                _uiState.value = AuthUiState.Success
-                onSuccess()
             } catch (t: Throwable) {
-                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(t))
+                _uiState.value = AuthUiState.Error(t.localizedMessage ?: "Error al iniciar sesión")
             }
         }
     }
 
     /**
-     * Registra un nuevo usuario con Nombre Completo, Correo y Contraseña en Supabase Auth
+     * Registra un nuevo usuario en la base de datos local (Room)
      */
     fun signUp(
         fullName: String,
@@ -107,17 +118,26 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
             try {
-                SupabaseClient.client.auth.signUpWith(Email) {
-                    this.email = trimmedEmail
-                    this.password = pass
-                    data = buildJsonObject {
-                        put("full_name", trimmedName)
-                    }
+                val existing = userDao.getUserByEmail(trimmedEmail)
+                if (existing != null) {
+                    _uiState.value = AuthUiState.Error("Ya existe una cuenta registrada con este correo electrónico.")
+                    return@launch
                 }
-                _uiState.value = AuthUiState.Success
-                onSuccess()
+
+                val newUser = UserEntity(
+                    fullName = trimmedName,
+                    email = trimmedEmail,
+                    passwordHash = hashPassword(pass)
+                )
+                val id = userDao.insertUser(newUser)
+                if (id > 0) {
+                    _uiState.value = AuthUiState.Success
+                    onSuccess()
+                } else {
+                    _uiState.value = AuthUiState.Error("No se pudo registrar el usuario localmente.")
+                }
             } catch (t: Throwable) {
-                _uiState.value = AuthUiState.Error(mapAuthErrorMessage(t))
+                _uiState.value = AuthUiState.Error(t.localizedMessage ?: "Error al registrar el usuario")
             }
         }
     }
@@ -128,28 +148,13 @@ class AuthViewModel : ViewModel() {
     }
 
     private fun isValidPassword(password: String): Boolean {
-        // Al menos 8 caracteres, al menos una letra y al menos un número
         val hasLetter = password.any { it.isLetter() }
         val hasDigit = password.any { it.isDigit() }
         return password.length >= 8 && hasLetter && hasDigit
     }
 
-    private fun mapAuthErrorMessage(throwable: Throwable): String {
-        val msg = throwable.message.orEmpty()
-        return when {
-            msg.contains("Invalid login credentials", ignoreCase = true) ->
-                "Correo o contraseña incorrectos. Verifica tus datos."
-            msg.contains("User already registered", ignoreCase = true) ||
-            msg.contains("already exists", ignoreCase = true) ->
-                "Ya existe una cuenta registrada con este correo electrónico."
-            msg.contains("Password should be at least", ignoreCase = true) ->
-                "La contraseña no cumple con los requisitos mínimos de seguridad."
-            msg.contains("Unable to resolve host", ignoreCase = true) ||
-            msg.contains("ConnectException", ignoreCase = true) ||
-            msg.contains("timeout", ignoreCase = true) ->
-                "Error de conexión. Verifica tu conexión a internet."
-            else ->
-                throwable.localizedMessage ?: "Ocurrió un error al procesar tu solicitud."
-        }
+    private fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
     }
 }

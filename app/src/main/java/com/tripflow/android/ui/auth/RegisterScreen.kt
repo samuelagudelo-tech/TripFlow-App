@@ -3,6 +3,7 @@ package com.tripflow.android.ui.auth
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -43,6 +44,7 @@ fun RegisterScreen(
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var termsAccepted by remember { mutableStateOf(false) }
+    var showSuccessDialog by remember { mutableStateOf(false) }
 
     val uiState by viewModel.uiState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -175,7 +177,7 @@ fun RegisterScreen(
                             password,
                             confirmPassword,
                             termsAccepted,
-                            onRegisterSuccess
+                            onSuccess = { showSuccessDialog = true }
                         )
                     }
                 )
@@ -268,10 +270,48 @@ fun RegisterScreen(
                         password,
                         confirmPassword,
                         termsAccepted,
-                        onRegisterSuccess
+                        onSuccess = { showSuccessDialog = true }
                     )
                 }
             )
+
+            // Diálogo de éxito al registrar usuario
+            if (showSuccessDialog) {
+                AlertDialog(
+                    onDismissRequest = {
+                        showSuccessDialog = false
+                        onNavigateToLogin()
+                    },
+                    title = {
+                        Text(
+                            text = "¡Cuenta creada con éxito!",
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary
+                        )
+                    },
+                    text = {
+                        Text(
+                            text = "Tu cuenta ha sido registrada correctamente. Por favor revisa tu bandeja de entrada para confirmar tu correo (si tu proyecto de Supabase tiene la confirmación activa) y luego inicia sesión.",
+                            fontSize = 14.sp,
+                            color = TextSecondary
+                        )
+                    },
+                    confirmButton = {
+                        Button(
+                            onClick = {
+                                showSuccessDialog = false
+                                onNavigateToLogin()
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text("Ir a Iniciar Sesión", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
+                    },
+                    containerColor = Color.White,
+                    shape = RoundedCornerShape(16.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(18.dp))
 
