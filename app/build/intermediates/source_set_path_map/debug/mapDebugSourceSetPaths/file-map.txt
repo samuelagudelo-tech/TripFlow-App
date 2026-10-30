@@ -54,10 +54,10 @@ com.tripflow.android.app-sqlite-framework-2.4.0-52 C:\Users\USUARIO\.gradle\cach
 com.tripflow.android.app-material-icons-extended-release-53 C:\Users\USUARIO\.gradle\caches\8.9\transforms\ec3bb380039032ab6a98758e1605a620\transformed\material-icons-extended-release\res
 com.tripflow.android.app-ui-tooling-data-release-54 C:\Users\USUARIO\.gradle\caches\8.9\transforms\fbb89e2a6056d9cfbcaf908dffd265e7\transformed\ui-tooling-data-release\res
 com.tripflow.android.app-browser-1.8.0-55 C:\Users\USUARIO\.gradle\caches\8.9\transforms\fbedca792efad9b88b44314fa398122e\transformed\browser-1.8.0\res
-com.tripflow.android.app-pngs-56 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\generated\res\pngs\debug
-com.tripflow.android.app-resValues-57 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\generated\res\resValues\debug
-com.tripflow.android.app-packageDebugResources-58 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.tripflow.android.app-packageDebugResources-59 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.tripflow.android.app-debug-60 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.tripflow.android.app-debug-61 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\src\debug\res
-com.tripflow.android.app-main-62 C:\Users\USUARIO\Downloads\ProyectosUniversidad\TripFlowApp\app\src\main\res
+com.tripflow.android.app-pngs-56 D:\TripFlow-Android\app\build\generated\res\pngs\debug
+com.tripflow.android.app-resValues-57 D:\TripFlow-Android\app\build\generated\res\resValues\debug
+com.tripflow.android.app-packageDebugResources-58 D:\TripFlow-Android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.tripflow.android.app-packageDebugResources-59 D:\TripFlow-Android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.tripflow.android.app-debug-60 D:\TripFlow-Android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.tripflow.android.app-debug-61 D:\TripFlow-Android\app\src\debug\res
+com.tripflow.android.app-main-62 D:\TripFlow-Android\app\src\main\res
