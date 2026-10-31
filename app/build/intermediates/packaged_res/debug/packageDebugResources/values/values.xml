@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_light">#F9FAFB</color>
+    <color name="brand_hover">#E02B71</color>
+    <color name="brand_light">#FFEAEE</color>
+    <color name="brand_primary">#FF3482</color>
+    <string name="app_name">TripFlow</string>
+    <style name="Theme.TripFlow" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#F9FAFB</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
