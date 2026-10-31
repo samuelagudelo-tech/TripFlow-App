@@ -40,7 +40,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             try {
-                // Consultamos los viajes desde Room (userId = 1 por defecto en sesión local)
+                // Consultamos exclusivamente los viajes reales desde Room (userId = 1)
                 tripDao.getTripsByUser(1L).collect { trips ->
                     val activeTrip = selectActiveOrUpcomingTrip(trips)
 
@@ -49,7 +49,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                             processTripAndExpenses(activeTrip, expenses)
                         }
                     } else {
-                        // Si no hay viajes en Room, podemos cargar datos de demostración o dejar estado vacío
+                        // Estado vacío: no hay viajes reales en la base de datos
                         _uiState.update {
                             it.copy(
                                 isLoading = false,
@@ -62,8 +62,18 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                         }
                     }
                 }
-            } catch (_: Exception) {
-                loadDemoData()
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = e.localizedMessage ?: "Error al cargar datos",
+                        activeTrip = null,
+                        activeTripExpenses = emptyList(),
+                        totalSpent = 0.0,
+                        budgetLimit = 0.0,
+                        dailyStats = emptyList(),
+                    )
+                }
             }
         }
     }
@@ -85,158 +95,6 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                 currency = trip.currency.ifBlank { "USD" },
                 daysRemaining = daysRemaining,
                 isOverBudget = isOver,
-                dailyStats = stats,
-                errorMessage = null,
-            )
-        }
-    }
-
-    fun insertDemoDataIfEmpty() {
-        viewModelScope.launch {
-            try {
-                val today = LocalDate.now()
-                val demoTrip = TripEntity(
-                    userId = 1L,
-                    destination = "Madrid, España",
-                    startDate = today.minusDays(2).toString(),
-                    endDate = today.plusDays(5).toString(),
-                    budgetLimit = 3000.0,
-                    currency = "USD"
-                )
-                val tripId = tripDao.insertTrip(demoTrip)
-
-                val demoExpenses = listOf(
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Cena de bienvenida",
-                        amount = 85.0,
-                        category = "Alimentación",
-                        date = today.minusDays(2).toString()
-                    ),
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Boleto Metro 10 viajes",
-                        amount = 24.50,
-                        category = "Transporte",
-                        date = today.minusDays(1).toString()
-                    ),
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Hotel Gran Vía (Noches 1-3)",
-                        amount = 620.0,
-                        category = "Alojamiento",
-                        date = today.minusDays(1).toString()
-                    ),
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Entrada Museo del Prado",
-                        amount = 30.0,
-                        category = "Entretenimiento",
-                        date = today.toString()
-                    ),
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Almuerzo tapas Plaza Mayor",
-                        amount = 45.0,
-                        category = "Alimentación",
-                        date = today.toString()
-                    ),
-                    ExpenseEntity(
-                        tripId = tripId,
-                        title = "Vuelo conexión Madrid",
-                        amount = 445.50,
-                        category = "Vuelos",
-                        date = today.minusDays(2).toString()
-                    )
-                )
-
-                for (exp in demoExpenses) {
-                    expenseDao.insertExpense(exp)
-                }
-            } catch (_: Exception) {}
-        }
-    }
-
-    private fun loadDemoData() {
-        val today = LocalDate.now()
-        val startDate = today.minusDays(2).toString()
-        val endDate = today.plusDays(5).toString()
-
-        val mockTrip = TripEntity(
-            id = 1L,
-            userId = 1L,
-            destination = "Madrid, España",
-            startDate = startDate,
-            endDate = endDate,
-            budgetLimit = 3000.0,
-            currency = "USD"
-        )
-
-        val mockExpenses = listOf(
-            ExpenseEntity(
-                id = 1L,
-                tripId = mockTrip.id,
-                title = "Cena de bienvenida",
-                amount = 85.0,
-                category = "Alimentación",
-                date = today.minusDays(2).toString()
-            ),
-            ExpenseEntity(
-                id = 2L,
-                tripId = mockTrip.id,
-                title = "Boleto Metro 10 viajes",
-                amount = 24.50,
-                category = "Transporte",
-                date = today.minusDays(1).toString()
-            ),
-            ExpenseEntity(
-                id = 3L,
-                tripId = mockTrip.id,
-                title = "Hotel Gran Vía (Noches 1-3)",
-                amount = 620.0,
-                category = "Alojamiento",
-                date = today.minusDays(1).toString()
-            ),
-            ExpenseEntity(
-                id = 4L,
-                tripId = mockTrip.id,
-                title = "Entrada Museo del Prado",
-                amount = 30.0,
-                category = "Entretenimiento",
-                date = today.toString()
-            ),
-            ExpenseEntity(
-                id = 5L,
-                tripId = mockTrip.id,
-                title = "Almuerzo tapas Plaza Mayor",
-                amount = 45.0,
-                category = "Alimentación",
-                date = today.toString()
-            ),
-            ExpenseEntity(
-                id = 6L,
-                tripId = mockTrip.id,
-                title = "Vuelo conexión Madrid",
-                amount = 445.50,
-                category = "Vuelos",
-                date = today.minusDays(2).toString()
-            )
-        )
-
-        val totalSpent = mockExpenses.sumOf { it.amount }
-        val daysRemaining = calculateDaysRemaining(endDate)
-        val stats = calculateDailyStats(mockExpenses, _uiState.value.selectedTimeRange)
-
-        _uiState.update {
-            it.copy(
-                isLoading = false,
-                activeTrip = mockTrip,
-                activeTripExpenses = mockExpenses,
-                totalSpent = totalSpent,
-                budgetLimit = mockTrip.budgetLimit,
-                currency = mockTrip.currency,
-                daysRemaining = daysRemaining,
-                isOverBudget = totalSpent > mockTrip.budgetLimit,
                 dailyStats = stats,
                 errorMessage = null,
             )

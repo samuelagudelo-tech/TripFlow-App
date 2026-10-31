@@ -39,9 +39,9 @@ import java.util.Locale
 
 /**
  * Módulo Dashboard & Estadísticas - Asignado a Integrante 5 (feature/dashboard)
- * Conectado a la base de datos local (Room).
+ * Conectado exclusivamente a la base de datos local (Room).
  * Incluye:
- * - Estado de Bienvenida (sin viajes)
+ * - Estado de Bienvenida (sin viajes en la base de datos)
  * - Tarjeta de Viaje Activo con contador de días restantes
  * - Resumen de presupuesto y barra de progreso interactiva (Magenta / Rojo sobregiro)
  * - Gráfica de gastos interactiva con tabs (Semana / Mes) y tooltips
@@ -89,14 +89,13 @@ fun DashboardScreen(
                     CircularProgressIndicator(color = BrandPrimary)
                 }
             } else if (uiState.activeTrip == null) {
-                // Estado de bienvenida cuando no hay viajes
+                // Estado de bienvenida cuando no hay viajes registrados en Room
                 DashboardEmptyState(
                     paddingValues = paddingValues,
-                    onNewTripClick = onNavigateToNewTrip,
-                    onLoadDemoData = { viewModel.insertDemoDataIfEmpty() }
+                    onNewTripClick = onNavigateToNewTrip
                 )
             } else {
-                // Contenido principal del Dashboard
+                // Contenido principal del Dashboard con datos reales de Room
                 DashboardContent(
                     paddingValues = paddingValues,
                     uiState = uiState,
@@ -657,13 +656,12 @@ private fun ChartTabButton(
 }
 
 /**
- * Estado Vacío (Sin viajes creados)
+ * Estado Vacío (Sin viajes creados en Room)
  */
 @Composable
 private fun DashboardEmptyState(
     paddingValues: PaddingValues,
-    onNewTripClick: () -> Unit,
-    onLoadDemoData: () -> Unit
+    onNewTripClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -733,17 +731,6 @@ private fun DashboardEmptyState(
                     color = Color.White
                 )
             )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Botón auxiliar para sembrar datos en Room si se desea probar
-        OutlinedButton(
-            onClick = onLoadDemoData,
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = BrandPrimary)
-        ) {
-            Text("Cargar viaje de muestra en Room")
         }
     }
 }
