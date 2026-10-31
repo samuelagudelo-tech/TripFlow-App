@@ -18,6 +18,9 @@ interface TripDao {
     @Query("SELECT * FROM trips WHERE userId = :userId ORDER BY createdAt DESC")
     fun getTripsByUser(userId: Long): Flow<List<TripEntity>>
 
+    @Query("SELECT * FROM trips ORDER BY createdAt DESC")
+    fun getAllTrips(): Flow<List<TripEntity>>
+
     @Query("SELECT * FROM trips WHERE id = :tripId LIMIT 1")
     suspend fun getTripById(tripId: Long): TripEntity?
 }

@@ -223,6 +223,63 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
+  public Flow<List<ExpenseEntity>> getAllExpenses() {
+    final String _sql = "SELECT * FROM expenses ORDER BY date DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"expenses"}, new Callable<List<ExpenseEntity>>() {
+      @Override
+      @NonNull
+      public List<ExpenseEntity> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTripId = CursorUtil.getColumnIndexOrThrow(_cursor, "tripId");
+          final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
+          final int _cursorIndexOfAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "amount");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "date");
+          final int _cursorIndexOfReceiptImage = CursorUtil.getColumnIndexOrThrow(_cursor, "receipt_image");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final List<ExpenseEntity> _result = new ArrayList<ExpenseEntity>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final ExpenseEntity _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpTripId;
+            _tmpTripId = _cursor.getLong(_cursorIndexOfTripId);
+            final String _tmpTitle;
+            _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+            final double _tmpAmount;
+            _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
+            final String _tmpCategory;
+            _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            final String _tmpDate;
+            _tmpDate = _cursor.getString(_cursorIndexOfDate);
+            final byte[] _tmpReceiptImage;
+            if (_cursor.isNull(_cursorIndexOfReceiptImage)) {
+              _tmpReceiptImage = null;
+            } else {
+              _tmpReceiptImage = _cursor.getBlob(_cursorIndexOfReceiptImage);
+            }
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            _item = new ExpenseEntity(_tmpId,_tmpTripId,_tmpTitle,_tmpAmount,_tmpCategory,_tmpDate,_tmpReceiptImage,_tmpCreatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
   public Object getReceiptImage(final long expenseId,
       final Continuation<? super byte[]> $completion) {
     final String _sql = "SELECT receipt_image FROM expenses WHERE id = ?";
