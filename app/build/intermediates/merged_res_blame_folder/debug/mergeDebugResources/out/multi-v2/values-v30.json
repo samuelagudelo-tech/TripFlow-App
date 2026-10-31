@@ -4,7 +4,7 @@
             "outputFile": "com.tripflow.android.app-mergeDebugResources-58:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\USUARIO\\.gradle\\caches\\8.9\\transforms\\a885003311d9a551c9413c35bc1572bb\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
+                    "source": "C:\\Users\\juane\\.gradle\\caches\\8.9\\transforms\\a885003311d9a551c9413c35bc1572bb\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

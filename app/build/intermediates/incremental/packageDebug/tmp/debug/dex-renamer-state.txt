@@ -1,15 +1,15 @@
-#Thu Oct 29 20:48:49 COT 2026
-base.0=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.10=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.2=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
-base.3=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.4=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
-base.5=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
-base.6=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
-base.7=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
-base.8=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
-base.9=C\:\\Users\\USUARIO\\Downloads\\ProyectosUniversidad\\TripFlowApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+#Sat Oct 31 12:44:39 COT 2026
+base.0=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.10=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+base.2=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.3=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.4=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.5=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
+base.6=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
+base.7=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
+base.8=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
+base.9=C\:\\Users\\juane\\AndroidStudioProjects\\TripFlow-App\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.10=classes3.dex
