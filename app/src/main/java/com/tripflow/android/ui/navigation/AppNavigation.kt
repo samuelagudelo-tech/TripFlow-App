@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +21,7 @@ import com.tripflow.android.ui.auth.RegisterScreen
 import com.tripflow.android.ui.dashboard.DashboardScreen
 import com.tripflow.android.ui.expenses.ExpensesScreen
 import com.tripflow.android.ui.expenses.NewExpenseScreen
+import com.tripflow.android.ui.expenses.ExpensesViewModel
 import com.tripflow.android.ui.theme.BrandLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.TextSecondary
@@ -33,6 +35,9 @@ fun AppNavigation(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val expensesViewModel: ExpensesViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    val expenses by expensesViewModel.expenses.collectAsState()
+    val trips by expensesViewModel.trips.collectAsState()
 
     val showBottomBar = currentRoute in listOf(
         Screen.Dashboard.route,
@@ -132,12 +137,16 @@ fun AppNavigation(
             // Expenses Module (Integrante 4)
             composable(Screen.Expenses.route) {
                 ExpensesScreen(
-                    onNavigateToNewExpense = { navController.navigate(Screen.NewExpense.route) }
+                    onNavigateToNewExpense = { navController.navigate(Screen.NewExpense.route) },
+                    expenses = expenses,
+                    trips = trips
                 )
             }
             composable(Screen.NewExpense.route) {
                 NewExpenseScreen(
-                    onNavigateBack = { navController.popBackStack() }
+                    onNavigateBack = { navController.popBackStack() },
+                    trips = trips,
+                    onSaveExpense = expensesViewModel::addExpense
                 )
             }
         }

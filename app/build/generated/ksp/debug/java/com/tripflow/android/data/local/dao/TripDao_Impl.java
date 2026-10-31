@@ -208,6 +208,59 @@ public final class TripDao_Impl implements TripDao {
   }
 
   @Override
+  public Flow<List<TripEntity>> getAllTrips() {
+    final String _sql = "SELECT * FROM trips ORDER BY createdAt DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"trips"}, new Callable<List<TripEntity>>() {
+      @Override
+      @NonNull
+      public List<TripEntity> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfUserId = CursorUtil.getColumnIndexOrThrow(_cursor, "userId");
+          final int _cursorIndexOfDestination = CursorUtil.getColumnIndexOrThrow(_cursor, "destination");
+          final int _cursorIndexOfStartDate = CursorUtil.getColumnIndexOrThrow(_cursor, "startDate");
+          final int _cursorIndexOfEndDate = CursorUtil.getColumnIndexOrThrow(_cursor, "endDate");
+          final int _cursorIndexOfBudgetLimit = CursorUtil.getColumnIndexOrThrow(_cursor, "budgetLimit");
+          final int _cursorIndexOfCurrency = CursorUtil.getColumnIndexOrThrow(_cursor, "currency");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final List<TripEntity> _result = new ArrayList<TripEntity>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final TripEntity _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpUserId;
+            _tmpUserId = _cursor.getLong(_cursorIndexOfUserId);
+            final String _tmpDestination;
+            _tmpDestination = _cursor.getString(_cursorIndexOfDestination);
+            final String _tmpStartDate;
+            _tmpStartDate = _cursor.getString(_cursorIndexOfStartDate);
+            final String _tmpEndDate;
+            _tmpEndDate = _cursor.getString(_cursorIndexOfEndDate);
+            final double _tmpBudgetLimit;
+            _tmpBudgetLimit = _cursor.getDouble(_cursorIndexOfBudgetLimit);
+            final String _tmpCurrency;
+            _tmpCurrency = _cursor.getString(_cursorIndexOfCurrency);
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            _item = new TripEntity(_tmpId,_tmpUserId,_tmpDestination,_tmpStartDate,_tmpEndDate,_tmpBudgetLimit,_tmpCurrency,_tmpCreatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
   public Object getTripById(final long tripId, final Continuation<? super TripEntity> $completion) {
     final String _sql = "SELECT * FROM trips WHERE id = ? LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
