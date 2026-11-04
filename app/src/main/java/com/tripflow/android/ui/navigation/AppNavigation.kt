@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.tripflow.android.ui.auth.AuthViewModel
 import com.tripflow.android.ui.auth.LoginScreen
 import com.tripflow.android.ui.auth.RegisterScreen
 import com.tripflow.android.ui.dashboard.DashboardScreen
@@ -36,7 +38,7 @@ fun AppNavigation(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val expensesViewModel: ExpensesViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    val expensesViewModel: ExpensesViewModel = viewModel()
     val expenses by expensesViewModel.expenses.collectAsState()
     val trips by expensesViewModel.trips.collectAsState()
 
@@ -118,9 +120,19 @@ fun AppNavigation(
 
             // Dashboard Module (Integrante 5)
             composable(Screen.Dashboard.route) {
+                // AuthViewModel a nivel de ruta para manejar el cierre de sesión
+                val authViewModel: AuthViewModel = viewModel()
                 DashboardScreen(
                     onNavigateToNewTrip = { navController.navigate(Screen.NewTrip.route) },
-                    onNavigateToNewExpense = { navController.navigate(Screen.NewExpense.route) }
+                    onNavigateToNewExpense = { navController.navigate(Screen.NewExpense.route) },
+                    onLogout = {
+                        authViewModel.signOut {
+                            navController.navigate(Screen.Login.route) {
+                                // Limpia todo el backstack para que no puedan volver al Dashboard
+                                popUpTo(0) { inclusive = true }
+                            }
+                        }
+                    }
                 )
             }
 
@@ -154,11 +166,7 @@ fun AppNavigation(
 
             // Preferences Module
             composable(Screen.Preferences.route) {
-                PreferencesScreen(
-                    onNavigateToLogin = {
-                        navController.navigate(Screen.Login.route)
-                    }
-                )
+                PreferencesScreen()
             }
         }
     }

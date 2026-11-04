@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripflow.android.data.local.TripFlowDatabase
 import com.tripflow.android.data.local.entity.UserEntity
+import com.tripflow.android.data.session.UserSessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,6 +23,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = TripFlowDatabase.getDatabase(application)
     private val userDao = database.userDao()
+    private val sessionManager = UserSessionManager.getInstance(application)
 
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Idle)
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
@@ -32,6 +34,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * Inicia sesión verificando credenciales en la base de datos local (Room)
+     * y persiste el ID del usuario activo en SharedPreferences.
      */
     fun signIn(
         email: String,
@@ -60,6 +63,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     ?: userDao.authenticate(trimmedEmail, pass) // compatibilidad con texto plano
 
                 if (user != null) {
+                    // Persistir sesión localmente
+                    sessionManager.login(user.id)
                     _uiState.value = AuthUiState.Success
                     onSuccess()
                 } else {
@@ -139,6 +144,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             } catch (t: Throwable) {
                 _uiState.value = AuthUiState.Error(t.localizedMessage ?: "Error al registrar el usuario")
             }
+        }
+    }
+
+    /**
+     * Cierra la sesión limpiando los datos locales (SharedPreferences).
+     * No depende de Supabase ni de red.
+     */
+    fun signOut(onComplete: () -> Unit) {
+        viewModelScope.launch {
+            sessionManager.logout()
+            _uiState.value = AuthUiState.Idle
+            onComplete()
         }
     }
 

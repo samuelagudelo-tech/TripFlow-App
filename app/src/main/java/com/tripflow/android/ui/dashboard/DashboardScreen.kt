@@ -51,6 +51,7 @@ import java.util.Locale
 fun DashboardScreen(
     onNavigateToNewTrip: () -> Unit,
     onNavigateToNewExpense: () -> Unit,
+    onLogout: () -> Unit,
     viewModel: DashboardViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -99,7 +100,8 @@ fun DashboardScreen(
                 DashboardContent(
                     paddingValues = paddingValues,
                     uiState = uiState,
-                    onTimeRangeSelected = { viewModel.setTimeRange(it) }
+                    onTimeRangeSelected = { viewModel.setTimeRange(it) },
+                    onLogout = onLogout
                 )
             }
         }
@@ -126,7 +128,8 @@ fun DashboardScreen(
 private fun DashboardContent(
     paddingValues: PaddingValues,
     uiState: DashboardUiState,
-    onTimeRangeSelected: (TimeRangeFilter) -> Unit
+    onTimeRangeSelected: (TimeRangeFilter) -> Unit,
+    onLogout: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -138,8 +141,8 @@ private fun DashboardContent(
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        // Encabezado
-        DashboardHeader()
+        // Encabezado con botón de cerrar sesión
+        DashboardHeader(onLogout = onLogout)
 
         // Tarjeta de Viaje Activo
         uiState.activeTrip?.let { trip ->
@@ -169,10 +172,10 @@ private fun DashboardContent(
 }
 
 /**
- * Encabezado de la pantalla
+ * Encabezado de la pantalla con botón de cerrar sesión
  */
 @Composable
-private fun DashboardHeader() {
+private fun DashboardHeader(onLogout: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -191,6 +194,15 @@ private fun DashboardHeader() {
                 style = MaterialTheme.typography.bodyMedium.copy(
                     color = TextSecondary
                 )
+            )
+        }
+
+        // Botón de Cerrar Sesión
+        IconButton(onClick = onLogout) {
+            Icon(
+                imageVector = Icons.Rounded.ExitToApp,
+                contentDescription = "Cerrar sesión",
+                tint = TextSecondary
             )
         }
     }
