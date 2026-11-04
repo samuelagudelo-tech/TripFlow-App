@@ -22,6 +22,7 @@ import com.tripflow.android.ui.dashboard.DashboardScreen
 import com.tripflow.android.ui.expenses.ExpensesScreen
 import com.tripflow.android.ui.expenses.NewExpenseScreen
 import com.tripflow.android.ui.expenses.ExpensesViewModel
+import com.tripflow.android.ui.preferences.PreferencesScreen
 import com.tripflow.android.ui.theme.BrandLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.TextSecondary
@@ -42,14 +43,15 @@ fun AppNavigation(
     val showBottomBar = currentRoute in listOf(
         Screen.Dashboard.route,
         Screen.Trips.route,
-        Screen.Expenses.route
+        Screen.Expenses.route,
+        Screen.Preferences.route
     )
 
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
                 NavigationBar(
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.surface,
                     tonalElevation = 8.dp
                 ) {
                     bottomNavItems.forEach { screen ->
@@ -147,6 +149,15 @@ fun AppNavigation(
                     onNavigateBack = { navController.popBackStack() },
                     trips = trips,
                     onSaveExpense = expensesViewModel::addExpense
+                )
+            }
+
+            // Preferences Module
+            composable(Screen.Preferences.route) {
+                PreferencesScreen(
+                    onNavigateToLogin = {
+                        navController.navigate(Screen.Login.route)
+                    }
                 )
             }
         }
