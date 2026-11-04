@@ -40,3 +40,11 @@ val CatOtherText = Color(0xFF6B7280)
 // Alerts
 val DestructiveRed = Color(0xFFEF4444)
 val DestructiveLight = Color(0xFFFEE2E2)
+
+// Dark Theme Neutrals
+val BackgroundDark = Color(0xFF121212)
+val SurfaceDark = Color(0xFF1E1E1E)
+val TextPrimaryDark = Color(0xFFF9FAFB)
+val TextSecondaryDark = Color(0xFF9CA3AF)
+val BorderSubtleDark = Color(0xFF27272A)
+val BorderMediumDark = Color(0xFF3F3F46)
