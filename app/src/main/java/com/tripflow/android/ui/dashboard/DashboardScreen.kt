@@ -60,7 +60,7 @@ fun DashboardScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Scaffold(
             containerColor = Color.Transparent,
@@ -186,13 +186,13 @@ private fun DashboardHeader(onLogout: () -> Unit) {
                 text = "Dashboard",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             )
             Text(
                 text = "Resumen de viaje activo y finanzas",
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = TextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             )
         }
@@ -202,7 +202,7 @@ private fun DashboardHeader(onLogout: () -> Unit) {
             Icon(
                 imageVector = Icons.Rounded.ExitToApp,
                 contentDescription = "Cerrar sesión",
-                tint = TextSecondary
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -228,7 +228,7 @@ private fun ActiveTripCard(
                 spotColor = Color.Black.copy(alpha = 0.05f)
             ),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = SurfaceWhite)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
@@ -257,7 +257,7 @@ private fun ActiveTripCard(
                         text = trip.destination,
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                            color = MaterialTheme.colorScheme.onBackground
                         ),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -280,7 +280,7 @@ private fun ActiveTripCard(
                 }
             }
 
-            HorizontalDivider(color = BorderSubtle, thickness = 1.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 1.dp)
 
             // Fila inferior: Fechas y Contador de Días Restantes
             Row(
@@ -295,13 +295,13 @@ private fun ActiveTripCard(
                     Icon(
                         imageVector = Icons.Rounded.CalendarToday,
                         contentDescription = "Fechas",
-                        tint = TextSecondary,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
                         text = formattedDates,
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = TextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontWeight = FontWeight.Medium
                         )
                     )
@@ -365,7 +365,7 @@ private fun BudgetCard(
                 spotColor = Color.Black.copy(alpha = 0.05f)
             ),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = SurfaceWhite)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
@@ -382,7 +382,7 @@ private fun BudgetCard(
                     text = "Presupuesto Consumido",
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
 
@@ -416,13 +416,13 @@ private fun BudgetCard(
                 Column {
                     Text(
                         text = "Gastado",
-                        style = MaterialTheme.typography.labelSmall.copy(color = TextSecondary)
+                        style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                     )
                     Text(
                         text = String.format(Locale.US, "$%,.2f %s", totalSpent, currency),
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = if (isOver) DestructiveRed else TextPrimary
+                            color = if (isOver) DestructiveRed else MaterialTheme.colorScheme.onSurface
                         )
                     )
                 }
@@ -430,19 +430,19 @@ private fun BudgetCard(
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
                         text = "Límite Total",
-                        style = MaterialTheme.typography.labelSmall.copy(color = TextSecondary)
+                        style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                     )
                     Text(
                         text = String.format(Locale.US, "$%,.2f %s", budgetLimit, currency),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color = TextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
                 }
             }
 
-            HorizontalDivider(color = BorderSubtle, thickness = 1.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 1.dp)
 
             // Indicador de disponible o sobregiro
             Row(
@@ -453,7 +453,7 @@ private fun BudgetCard(
                 Text(
                     text = if (isOver) "Monto Excedido" else "Saldo Disponible",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = if (isOver) DestructiveRed else TextSecondary,
+                        color = if (isOver) DestructiveRed else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Medium
                     )
                 )
@@ -495,7 +495,7 @@ private fun ExpensesChartCard(
                 spotColor = Color.Black.copy(alpha = 0.05f)
             ),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = SurfaceWhite)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
@@ -513,14 +513,14 @@ private fun ExpensesChartCard(
                     text = "Gráfica de Gastos",
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
 
                 // Segmented Buttons / Tabs
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = BorderSubtle
+                    color = MaterialTheme.colorScheme.surfaceVariant
                 ) {
                     Row(modifier = Modifier.padding(3.dp)) {
                         ChartTabButton(
@@ -569,7 +569,7 @@ private fun ExpensesChartCard(
                     Text(
                         text = "Toca una barra para ver detalles",
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = TextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp
                         )
                     )
@@ -620,7 +620,7 @@ private fun ExpensesChartCard(
                                         when {
                                             isSelected -> BrandPrimary
                                             stat.amount > 0 -> BrandPrimary.copy(alpha = 0.75f)
-                                            else -> BorderMedium
+                                            else -> MaterialTheme.colorScheme.outline
                                         }
                                     )
                             )
@@ -634,7 +634,7 @@ private fun ExpensesChartCard(
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontSize = 11.sp,
                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = if (isSelected) BrandPrimary else TextSecondary
+                                color = if (isSelected) BrandPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             ),
                             maxLines = 1
                         )
@@ -653,14 +653,14 @@ private fun ChartTabButton(
 ) {
     Surface(
         shape = RoundedCornerShape(10.dp),
-        color = if (isSelected) SurfaceWhite else Color.Transparent,
+        color = if (isSelected) MaterialTheme.colorScheme.surface else Color.Transparent,
         modifier = Modifier.clickable(onClick = onClick)
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.labelSmall.copy(
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                color = if (isSelected) BrandPrimary else TextSecondary
+                color = if (isSelected) BrandPrimary else MaterialTheme.colorScheme.onSurfaceVariant
             ),
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
         )
@@ -705,7 +705,7 @@ private fun DashboardEmptyState(
             text = "¡Bienvenido a TripFlow!",
             style = MaterialTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,
-                color = TextPrimary
+                color = MaterialTheme.colorScheme.onBackground
             ),
             textAlign = TextAlign.Center
         )
@@ -715,7 +715,7 @@ private fun DashboardEmptyState(
         Text(
             text = "Aún no tienes ningún viaje registrado. Crea tu primer viaje para comenzar a registrar gastos y controlar tu presupuesto en tiempo real.",
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = TextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 lineHeight = 22.sp
             ),
             textAlign = TextAlign.Center,
@@ -834,14 +834,14 @@ private fun SpeedDialItem(
         // Etiqueta flotante con sombra
         Surface(
             shape = RoundedCornerShape(8.dp),
-            color = SurfaceWhite,
+            color = MaterialTheme.colorScheme.surface,
             shadowElevation = 3.dp
         ) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontWeight = FontWeight.SemiBold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 ),
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
             )
@@ -851,7 +851,7 @@ private fun SpeedDialItem(
         SmallFloatingActionButton(
             onClick = onClick,
             shape = CircleShape,
-            containerColor = SurfaceWhite,
+            containerColor = MaterialTheme.colorScheme.surface,
             contentColor = BrandPrimary,
             elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 4.dp)
         ) {
