@@ -1,6 +1,5 @@
 package com.tripflow.android.ui.auth
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -24,11 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.tripflow.android.ui.theme.BackgroundLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.DestructiveRed
-import com.tripflow.android.ui.theme.TextPrimary
-import com.tripflow.android.ui.theme.TextSecondary
 import com.tripflow.android.ui.theme.TripFlowTheme
 
 @Composable
@@ -49,7 +45,7 @@ fun LoginScreen(
     }
 
     Scaffold(
-        containerColor = BackgroundLight
+        containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -71,7 +67,7 @@ fun LoginScreen(
                 text = "Bienvenido de nuevo",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center
             )
 
@@ -80,7 +76,7 @@ fun LoginScreen(
             Text(
                 text = "Tus próximos viajes te esperan. Inicia sesión y mantén tu presupuesto bajo control.",
                 fontSize = 14.sp,
-                color = TextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 lineHeight = 20.sp,
                 modifier = Modifier.padding(horizontal = 8.dp)
@@ -175,7 +171,7 @@ fun LoginScreen(
 
             // 7. Enlace a Registro
             val annotatedRegisterText = buildAnnotatedString {
-                withStyle(style = SpanStyle(color = TextSecondary, fontSize = 14.sp)) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp)) {
                     append("¿No tienes una cuenta? ")
                 }
                 withStyle(

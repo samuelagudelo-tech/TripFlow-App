@@ -50,7 +50,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MenuAnchorType
-
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -80,7 +79,6 @@ import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import com.tripflow.android.data.local.entity.TripEntity
 import com.tripflow.android.data.model.Expense
-import com.tripflow.android.ui.theme.BackgroundLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.CatEntertainmentBg
 import com.tripflow.android.ui.theme.CatEntertainmentText
@@ -115,7 +113,7 @@ fun ExpensesScreen(
     var selectedExpense by remember { mutableStateOf<Expense?>(null) }
 
     Scaffold(
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToNewExpense,
@@ -159,7 +157,7 @@ private fun ExpenseRow(expense: Expense, trips: List<TripEntity>, onClick: () ->
     Card(
         modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -213,7 +211,7 @@ private fun ExpenseDetailsSheet(expense: Expense, trips: List<TripEntity>, onDis
                 Text("Recibo adjunto", modifier = Modifier.padding(top = 18.dp), style = MaterialTheme.typography.titleSmall)
                 Box(
                     Modifier.fillMaxWidth().height(100.dp).padding(top = 8.dp)
-                        .clip(RoundedCornerShape(12.dp)).background(BackgroundLight),
+                        .clip(RoundedCornerShape(12.dp)).background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.AutoMirrored.Filled.ReceiptLong, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -275,7 +273,7 @@ fun NewExpenseScreen(
     }
 
     Scaffold(
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = { Text("tripflow", style = MaterialTheme.typography.headlineSmall) },
@@ -437,7 +435,7 @@ fun NewExpenseScreen(
 
 @Composable
 private fun FieldLabel(text: String) {
-    Text(text, style = MaterialTheme.typography.labelLarge, color = Color(0xFF604B53), modifier = Modifier.padding(top = 4.dp))
+    Text(text, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -447,8 +445,7 @@ private fun ExpenseDropdown(
     expanded: Boolean,
     onExpandedChange: () -> Unit,
     options: List<String>,
-    modifier: Modifier
-        = Modifier,
+    modifier: Modifier = Modifier,
     onOptionSelected: (String) -> Unit
 ) {
     ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { onExpandedChange() }) {

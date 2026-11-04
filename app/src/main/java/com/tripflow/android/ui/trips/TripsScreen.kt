@@ -46,7 +46,7 @@ fun TripsScreen(
     var tripToDelete by remember { mutableStateOf<TripEntity?>(null) }
 
     Scaffold(
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToNewTrip,
@@ -72,14 +72,14 @@ fun TripsScreen(
                 text = "Mis Viajes",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Gestiona tus destinos, fechas y presupuestos",
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = TextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             )
 
@@ -136,13 +136,13 @@ fun TripsScreen(
                 Text(
                     text = "Eliminar viaje",
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             },
             text = {
                 Text(
                     text = "¿Deseas eliminar el viaje a \"${trip.destination}\"? Esta acción no se puede deshacer y también eliminará sus gastos asociados.",
-                    color = TextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp
                 )
             },
@@ -159,10 +159,10 @@ fun TripsScreen(
             },
             dismissButton = {
                 TextButton(onClick = { tripToDelete = null }) {
-                    Text("Cancelar", color = TextSecondary)
+                    Text("Cancelar", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             },
-            containerColor = SurfaceWhite,
+            containerColor = MaterialTheme.colorScheme.surface,
             shape = RoundedCornerShape(16.dp)
         )
     }
@@ -193,9 +193,9 @@ private fun TripFilterChipsRow(
                 TripFilter.FINISHED -> finishedCount
             }
 
-            val containerColor = if (isSelected) BrandPrimary else SurfaceWhite
-            val contentColor = if (isSelected) Color.White else TextSecondary
-            val borderColor = if (isSelected) BrandPrimary else BorderMedium
+            val containerColor = if (isSelected) BrandPrimary else MaterialTheme.colorScheme.surface
+            val contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+            val borderColor = if (isSelected) BrandPrimary else MaterialTheme.colorScheme.outline
 
             Surface(
                 onClick = { onFilterSelected(filter) },
@@ -219,7 +219,7 @@ private fun TripFilterChipsRow(
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
-                                .background(if (isSelected) Color.White.copy(alpha = 0.25f) else BorderSubtle)
+                                .background(if (isSelected) Color.White.copy(alpha = 0.25f) else MaterialTheme.colorScheme.surfaceVariant)
                                 .padding(horizontal = 6.dp, vertical = 2.dp),
                             contentAlignment = Alignment.Center
                         ) {
@@ -248,8 +248,8 @@ fun TripCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, BorderSubtle, RoundedCornerShape(16.dp)),
-        colors = CardDefaults.cardColors(containerColor = SurfaceWhite),
+            .border(1.dp, MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(16.dp)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -286,7 +286,7 @@ fun TripCardItem(
                         text = item.trip.destination,
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         ),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -294,7 +294,7 @@ fun TripCardItem(
                     Text(
                         text = "${item.daysCount} días de aventura",
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = TextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp
                         )
                     )
@@ -313,13 +313,13 @@ fun TripCardItem(
                     Icon(
                         imageVector = Icons.Default.DeleteOutline,
                         contentDescription = "Eliminar viaje",
-                        tint = TextSecondary,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(20.dp)
                     )
                 }
             }
 
-            HorizontalDivider(color = BorderSubtle, thickness = 1.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, thickness = 1.dp)
 
             // Rango de fechas
             Row(
@@ -329,13 +329,13 @@ fun TripCardItem(
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = "Fechas",
-                    tint = TextSecondary,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(16.dp)
                 )
                 Text(
                     text = item.formattedDates,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -355,7 +355,7 @@ fun TripCardItem(
                     Text(
                         text = "Presupuesto",
                         fontSize = 12.sp,
-                        color = TextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Medium
                     )
                     val formattedSpent = formatCurrency(item.spentAmount)
@@ -364,7 +364,7 @@ fun TripCardItem(
                         text = "$formattedSpent / $formattedLimit ${item.trip.currency}",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (item.isOverBudget) DestructiveRed else TextPrimary
+                        color = if (item.isOverBudget) DestructiveRed else MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -399,13 +399,13 @@ fun TripCardItem(
                         Text(
                             text = "$percentage% consumido",
                             fontSize = 11.sp,
-                            color = TextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             text = "Disponible: ${formatCurrency(remaining)} ${item.trip.currency}",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
-                            color = TextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -492,14 +492,14 @@ private fun EmptyTripsState(
                 text = title,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             )
 
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = TextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 20.sp
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp),

@@ -26,11 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.tripflow.android.ui.theme.BackgroundLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.DestructiveRed
-import com.tripflow.android.ui.theme.TextPrimary
-import com.tripflow.android.ui.theme.TextSecondary
 import com.tripflow.android.ui.theme.TripFlowTheme
 
 @Composable
@@ -55,7 +52,7 @@ fun RegisterScreen(
     }
 
     Scaffold(
-        containerColor = BackgroundLight
+        containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -77,7 +74,7 @@ fun RegisterScreen(
                 text = "Crea tu cuenta",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center
             )
 
@@ -86,7 +83,7 @@ fun RegisterScreen(
             Text(
                 text = "Empieza a planear tus viajes y disfruta de cada destino sin salirte del presupuesto.",
                 fontSize = 14.sp,
-                color = TextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 lineHeight = 20.sp,
                 modifier = Modifier.padding(horizontal = 8.dp)
@@ -200,12 +197,12 @@ fun RegisterScreen(
                     },
                     colors = CheckboxDefaults.colors(
                         checkedColor = BrandPrimary,
-                        uncheckedColor = Color(0xFFD1D5DB)
+                        uncheckedColor = MaterialTheme.colorScheme.outline
                     )
                 )
 
                 val termsText = buildAnnotatedString {
-                    withStyle(style = SpanStyle(color = Color(0xFF374151), fontSize = 12.sp)) {
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 12.sp)) {
                         append("Acepto los ")
                     }
                     withStyle(
@@ -217,7 +214,7 @@ fun RegisterScreen(
                     ) {
                         append("Términos y condiciones")
                     }
-                    withStyle(style = SpanStyle(color = Color(0xFF374151), fontSize = 12.sp)) {
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 12.sp)) {
                         append(" y la ")
                     }
                     withStyle(
@@ -229,7 +226,7 @@ fun RegisterScreen(
                     ) {
                         append("Política de privacidad")
                     }
-                    withStyle(style = SpanStyle(color = Color(0xFF374151), fontSize = 12.sp)) {
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 12.sp)) {
                         append(" de Tripflow.")
                     }
                 }
@@ -286,14 +283,14 @@ fun RegisterScreen(
                         Text(
                             text = "¡Cuenta creada con éxito!",
                             fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     },
                     text = {
                         Text(
                             text = "Tu cuenta ha sido registrada correctamente. Por favor revisa tu bandeja de entrada para confirmar tu correo (si tu proyecto de Supabase tiene la confirmación activa) y luego inicia sesión.",
                             fontSize = 14.sp,
-                            color = TextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     },
                     confirmButton = {
@@ -308,7 +305,7 @@ fun RegisterScreen(
                             Text("Ir a Iniciar Sesión", color = Color.White, fontWeight = FontWeight.Bold)
                         }
                     },
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.surface,
                     shape = RoundedCornerShape(16.dp)
                 )
             }
@@ -317,7 +314,7 @@ fun RegisterScreen(
 
             // 9. Enlace a Iniciar Sesión
             val annotatedLoginText = buildAnnotatedString {
-                withStyle(style = SpanStyle(color = TextSecondary, fontSize = 14.sp)) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp)) {
                     append("¿Ya tienes una cuenta? ")
                 }
                 withStyle(

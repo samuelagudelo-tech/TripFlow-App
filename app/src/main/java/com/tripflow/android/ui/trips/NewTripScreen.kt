@@ -79,14 +79,14 @@ fun NewTripScreen(
     }
 
     Scaffold(
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         text = "Nuevo Viaje",
                         fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 navigationIcon = {
@@ -94,12 +94,12 @@ fun NewTripScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Volver",
-                            tint = TextPrimary
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = SurfaceWhite
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             )
         }
@@ -118,13 +118,13 @@ fun NewTripScreen(
                     text = "Planifica tu destino",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
                 Text(
                     text = "Ingresa la ciudad a la que viajarás. El buscador autocompletará la ciudad y su país correspondiente.",
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = TextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 20.sp
                     )
                 )
@@ -136,7 +136,7 @@ fun NewTripScreen(
                     text = "Destino turístico",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = TextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
 
@@ -150,7 +150,7 @@ fun NewTripScreen(
                             viewModel.onDestinationQueryChanged(query)
                         },
                         placeholder = {
-                            Text("Ej: París, Madrid, Cancún, Bogotá...", color = TextSecondary)
+                            Text("Ej: París, Madrid, Cancún, Bogotá...", color = MaterialTheme.colorScheme.onSurfaceVariant)
                         },
                         leadingIcon = {
                             Icon(
@@ -175,7 +175,7 @@ fun NewTripScreen(
                                     Icon(
                                         imageVector = Icons.Default.Clear,
                                         contentDescription = "Borrar",
-                                        tint = TextSecondary,
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier.size(18.dp)
                                     )
                                 }
@@ -185,9 +185,9 @@ fun NewTripScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = BrandPrimary,
-                            unfocusedBorderColor = BorderMedium,
-                            focusedContainerColor = SurfaceWhite,
-                            unfocusedContainerColor = SurfaceWhite
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -199,8 +199,8 @@ fun NewTripScreen(
                         properties = PopupProperties(focusable = false),
                         modifier = Modifier
                             .fillMaxWidth(0.9f)
-                            .background(SurfaceWhite)
-                            .border(1.dp, BorderSubtle, RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.surface)
+                            .border(1.dp, MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
                     ) {
                         suggestions.forEach { suggestion ->
                             DropdownMenuItem(
@@ -209,12 +209,12 @@ fun NewTripScreen(
                                         Text(
                                             text = suggestion.fullFormatted,
                                             fontWeight = FontWeight.Bold,
-                                            color = TextPrimary,
+                                            color = MaterialTheme.colorScheme.onSurface,
                                             fontSize = 14.sp
                                         )
                                         Text(
                                             text = suggestion.subtitle,
-                                            color = TextSecondary,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             fontSize = 12.sp,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
@@ -255,7 +255,7 @@ fun NewTripScreen(
                     text = "Fechas del viaje",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = TextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
 
@@ -270,8 +270,8 @@ fun NewTripScreen(
                 Surface(
                     onClick = { showDatePickerDialog = true },
                     shape = RoundedCornerShape(12.dp),
-                    color = SurfaceWhite,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, BorderMedium),
+                    color = MaterialTheme.colorScheme.surface,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -293,7 +293,7 @@ fun NewTripScreen(
                             Text(
                                 text = datesText,
                                 fontSize = 14.sp,
-                                color = if (startDateStr != null) TextPrimary else TextSecondary,
+                                color = if (startDateStr != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontWeight = if (startDateStr != null) FontWeight.SemiBold else FontWeight.Normal
                             )
                         }
@@ -357,7 +357,7 @@ fun NewTripScreen(
                         text = "Presupuesto límite",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(bottom = 6.dp)
                     )
 
@@ -370,7 +370,7 @@ fun NewTripScreen(
                                 localErrorMessage = null
                             }
                         },
-                        placeholder = { Text("0.00", color = TextSecondary) },
+                        placeholder = { Text("0.00", color = MaterialTheme.colorScheme.onSurfaceVariant) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.AttachMoney,
@@ -383,9 +383,9 @@ fun NewTripScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = BrandPrimary,
-                            unfocusedBorderColor = BorderMedium,
-                            focusedContainerColor = SurfaceWhite,
-                            unfocusedContainerColor = SurfaceWhite
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -397,7 +397,7 @@ fun NewTripScreen(
                         text = "Moneda",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(bottom = 6.dp)
                     )
 
@@ -407,8 +407,8 @@ fun NewTripScreen(
                         Surface(
                             onClick = { currencyDropdownExpanded = true },
                             shape = RoundedCornerShape(12.dp),
-                            color = SurfaceWhite,
-                            border = androidx.compose.foundation.BorderStroke(1.dp, BorderMedium),
+                            color = MaterialTheme.colorScheme.surface,
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(56.dp)
@@ -423,13 +423,13 @@ fun NewTripScreen(
                                 Text(
                                     text = selectedCurrency,
                                     fontWeight = FontWeight.Bold,
-                                    color = TextPrimary,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontSize = 14.sp
                                 )
                                 Icon(
                                     imageVector = if (currencyDropdownExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                                     contentDescription = null,
-                                    tint = TextSecondary,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier.size(20.dp)
                                 )
                             }
@@ -438,7 +438,7 @@ fun NewTripScreen(
                         DropdownMenu(
                             expanded = currencyDropdownExpanded,
                             onDismissRequest = { currencyDropdownExpanded = false },
-                            modifier = Modifier.background(SurfaceWhite)
+                            modifier = Modifier.background(MaterialTheme.colorScheme.surface)
                         ) {
                             currencies.forEach { curr ->
                                 DropdownMenuItem(
@@ -446,7 +446,7 @@ fun NewTripScreen(
                                         Text(
                                             text = curr,
                                             fontWeight = if (curr == selectedCurrency) FontWeight.Bold else FontWeight.Normal,
-                                            color = if (curr == selectedCurrency) BrandPrimary else TextPrimary
+                                            color = if (curr == selectedCurrency) BrandPrimary else MaterialTheme.colorScheme.onSurface
                                         )
                                     },
                                     onClick = {
@@ -569,11 +569,11 @@ fun NewTripScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showDatePickerDialog = false }) {
-                    Text("Cancelar", color = TextSecondary)
+                    Text("Cancelar", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             },
             colors = DatePickerDefaults.colors(
-                containerColor = SurfaceWhite
+                containerColor = MaterialTheme.colorScheme.surface
             )
         ) {
             DateRangePicker(
@@ -583,7 +583,7 @@ fun NewTripScreen(
                         text = "Rango de fechas de tu viaje",
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 8.dp)
                     )
                 },
@@ -604,7 +604,7 @@ fun NewTripScreen(
                     Text(
                         text = text,
                         fontSize = 13.sp,
-                        color = TextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(start = 24.dp, bottom = 12.dp)
                     )
                 },

@@ -28,8 +28,6 @@ import com.tripflow.android.R
 import com.tripflow.android.ui.theme.BrandLight
 import com.tripflow.android.ui.theme.BrandPrimary
 import com.tripflow.android.ui.theme.DestructiveRed
-import com.tripflow.android.ui.theme.TextPrimary
-import com.tripflow.android.ui.theme.TextSecondary
 
 /**
  * Logotipo superior de TripFlow: texto en minúscula con el ícono de la marca.
@@ -45,7 +43,7 @@ fun TripFlowLogoHeader(modifier: Modifier = Modifier) {
             text = "tripflow",
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF111827),
+            color = MaterialTheme.colorScheme.onBackground,
             letterSpacing = (-0.5).sp
         )
         Spacer(modifier = Modifier.width(10.dp))
@@ -79,7 +77,7 @@ fun TripFlowTextField(
             text = label,
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
-            color = Color(0xFF374151)
+            color = MaterialTheme.colorScheme.onSurface
         )
         OutlinedTextField(
             value = value,
@@ -87,7 +85,7 @@ fun TripFlowTextField(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = Color(0xFF9CA3AF),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp
                 )
             },
@@ -97,14 +95,14 @@ fun TripFlowTextField(
             keyboardActions = keyboardActions,
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                errorContainerColor = Color.White,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                errorContainerColor = MaterialTheme.colorScheme.surface,
                 focusedBorderColor = BrandPrimary,
-                unfocusedBorderColor = Color(0xFFE5E7EB),
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                 errorBorderColor = DestructiveRed,
-                focusedTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                 cursorColor = BrandPrimary
             ),
             modifier = Modifier.fillMaxWidth()
@@ -137,7 +135,7 @@ fun TripFlowPasswordField(
             text = label,
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
-            color = Color(0xFF374151)
+            color = MaterialTheme.colorScheme.onSurface
         )
         OutlinedTextField(
             value = value,
@@ -145,7 +143,7 @@ fun TripFlowPasswordField(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = Color(0xFF9CA3AF),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp
                 )
             },
@@ -157,7 +155,7 @@ fun TripFlowPasswordField(
                     Icon(
                         imageVector = if (passwordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
                         contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña",
-                        tint = Color(0xFF6B7280)
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             },
@@ -165,14 +163,14 @@ fun TripFlowPasswordField(
             keyboardActions = keyboardActions,
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                errorContainerColor = Color.White,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                errorContainerColor = MaterialTheme.colorScheme.surface,
                 focusedBorderColor = BrandPrimary,
-                unfocusedBorderColor = Color(0xFFE5E7EB),
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                 errorBorderColor = DestructiveRed,
-                focusedTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                 cursorColor = BrandPrimary
             ),
             modifier = Modifier.fillMaxWidth()
@@ -181,7 +179,7 @@ fun TripFlowPasswordField(
             Text(
                 text = helperText,
                 fontSize = 11.sp,
-                color = TextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 lineHeight = 14.sp
             )
         }
@@ -238,8 +236,8 @@ fun TripFlowPromoCard(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFFFFF0F4))
-            .border(1.dp, Color(0xFFFFE0EB), RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .border(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f), RoundedCornerShape(16.dp))
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -255,13 +253,13 @@ fun TripFlowPromoCard(modifier: Modifier = Modifier) {
                 text = "Viaja más, preocúpate menos",
                 fontWeight = FontWeight.Bold,
                 fontSize = 13.sp,
-                color = Color(0xFFBE185D)
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = "Planea tus viajes y cuida tus gastos en un solo lugar.",
                 fontSize = 12.sp,
-                color = TextSecondary
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

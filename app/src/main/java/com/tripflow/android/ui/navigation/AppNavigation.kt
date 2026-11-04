@@ -27,7 +27,6 @@ import com.tripflow.android.ui.expenses.ExpensesViewModel
 import com.tripflow.android.ui.preferences.PreferencesScreen
 import com.tripflow.android.ui.theme.BrandLight
 import com.tripflow.android.ui.theme.BrandPrimary
-import com.tripflow.android.ui.theme.TextSecondary
 import com.tripflow.android.ui.trips.NewTripScreen
 import com.tripflow.android.ui.trips.TripsScreen
 
@@ -82,8 +81,8 @@ fun AppNavigation(
                                 selectedIconColor = BrandPrimary,
                                 selectedTextColor = BrandPrimary,
                                 indicatorColor = BrandLight,
-                                unselectedIconColor = TextSecondary,
-                                unselectedTextColor = TextSecondary
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         )
                     }
